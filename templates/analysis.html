@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Analysis
+{% endblock %}
+
+{% block main %}
+    <div class="header"><h1>Analysis</h1></div>
+
+    {% set type_labels = {'subject': 'Study', 'exercise': 'Exercise', 'food': 'Food', 'habit': 'Habit', 'fun': 'Fun'} %}
+
+    {% if data.streak == 0 and data.categories|length == 0 and data.volumes|sum == 0 %}
+        <p class="muted" style="text-align:center; padding:40px;">
+            No schedule data yet. Save a plan and check off items to see your analysis here.
+        </p>
+    {% endif %}
+
+    <div class="analytics-grid">
+        <div class="analytics-card">
+            <h2>Exercise volume</h2>
+            <div class="chart-box"><canvas id="volumeChart"></canvas></div>
+        </div>
+
+        <div class="analytics-card">
+            <h2>Best weekday streak</h2>
+            <div class="kpi">{{ data.streak }}<span class="kpi-unit">days</span></div>
+            <p class="muted">Consecutive weekdays with at least one completed item.</p>
+        </div>
+
+        <div class="analytics-card">
+            <h2>Weekly completion heatmap</h2>
+            <div class="table-wrap">
+                <table class="heatmap">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            {% for day in data.days %}
+                                <th>{{ day[:3] }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in data.heatmap_types %}
+                            <tr>
+                                <th>{{ type_labels.get(t, t) }}</th>
+                                {% for day in data.days %}
+                                    {% set cell = data.heatmap[day].get(t) %}
+                                    {% if cell %}
+                                        {% set pct = (cell.done * 100) / cell.total %}
+                                        {% if pct == 100 %}
+                                            {% set cls = "heat-100" %}
+                                        {% elif pct >= 60 %}
+                                            {% set cls = "heat-75" %}
+                                        {% elif pct >= 30 %}
+                                            {% set cls = "heat-50" %}
+                                        {% elif pct > 0 %}
+                                            {% set cls = "heat-25" %}
+                                        {% else %}
+                                            {% set cls = "heat-0" %}
+                                        {% endif %}
+                                        <td class="heat-cell {{ cls }}" title="{{ cell.done }}/{{ cell.total }} done">{{ cell.done }}/{{ cell.total }}</td>
+                                    {% else %}
+                                        <td class="heat-cell heat-0">-</td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% else %}
+                            <tr><td colspan="8" class="muted">No schedule data yet.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="analytics-card">
+            <h2>Completion by category</h2>
+            <div class="chart-box"><canvas id="categoryChart"></canvas></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const volumeData = {{ data.volumes | tojson }};
+        const days = {{ data.days | tojson }};
+        const categories = {{ data.categories | tojson }};
+        const typeLabels = {{ type_labels | tojson }};
+
+        new Chart(document.getElementById('volumeChart'), {
+            type: 'bar',
+            data: {
+                labels: days.map(d => d.slice(0, 3)),
+                datasets: [{
+                    label: 'Sets × Reps',
+                    data: volumeData,
+                    backgroundColor: 'rgba(224, 130, 58, 0.85)',
+                    borderColor: 'rgba(224, 130, 58, 1)',
+                    borderWidth: 1,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        new Chart(document.getElementById('categoryChart'), {
+            type: 'doughnut',
+            data: {
+                labels: categories.map(c => typeLabels[c.type] || c.type),
+                datasets: [{
+                    data: categories.map(c => c.done),
+                    backgroundColor: ['#E0823A', '#F6C445', '#F6A445', '#D95D4E', '#7FA98E']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => {
+                                const c = categories[ctx.dataIndex];
+                                return ` ${typeLabels[c.type] || c.type}: ${c.done}/${c.total} (${c.pct}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

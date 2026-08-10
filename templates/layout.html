@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <title>Habit Tracker: {% block title %}{% endblock %}</title>
+</head>
+<body>
+
+    <div id="menu" class="buttonlist">
+        <span>≡</span>
+    </div>
+
+    <nav id="side-menu" class="nav-menu">
+        <a href="/analysis">Analysis</a>
+        <a href="/schedual">Schedule</a>
+        <a href="/newhabit">New Habit</a>
+        <a href="/studytracker">Study Tracker</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for message in messages %}
+            <div class="flash-message">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block main %}{% endblock %}
+
+
+    <script>
+      const menuBtn = document.getElementById('menu');
+      const sideMenu = document.getElementById('side-menu');
+
+      menuBtn.addEventListener('click', () => {
+        sideMenu.classList.toggle('active');
+      });
+    </script>
+</body>
+</html>

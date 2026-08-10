@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+<form action="/login" method="post" class="login">
+    <div class="glass-frame">
+        <h2>Login</h2>
+        <div>
+            <input type="text" name="username" autocomplete="off" autofocus required placeholder="username">
+        </div>
+        <div>
+            <input type="password" name="password" autocomplete="off" required placeholder="password">
+        </div>
+        <div>
+            <button type="submit">Log In</button>
+        </div>
+        <div>
+            <p>Don't have an account? <a href="/register" style="text-decoration: none;">Register</a></p>
+        </div>
+    </div>
+</form>
+{% endblock %}

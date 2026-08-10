@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    New Habit
+{% endblock %}
+
+{% block main %}
+    <div class="header"><h1>Suggested plan</h1></div>
+
+    {% if sections %}
+        {% for title, columns, items in sections %}
+            <h2>{{ title }}</h2>
+            {% if columns %}
+                <div class="table-wrap">
+                    <table class="plan-table">
+                        <thead>
+                            <tr>
+                                {% for key in columns %}
+                                    <th>{{ key }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                                <tr>
+                                    {% for key in columns %}
+                                        <td>
+                                            {% set value = item.get(key) %}
+                                            {% if value is string %}
+                                                {{ value }}
+                                            {% elif value is iterable and value is not mapping %}
+                                                {{ value | join(", ") }}
+                                            {% elif value is none %}
+                                                —
+                                            {% else %}
+                                                {{ value }}
+                                            {% endif %}
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p class="muted">The AI did not return a plan. Try asking again.</p>
+    {% endif %}
+
+    <form action="/newhabit" method="post">
+        <input type="hidden" name="habbit" value="{{ habit_type }}">
+        <input type="hidden" name="save" value="true">
+        <input type="hidden" name="response" value='{{ rows | tojson }}'>
+        <button type="submit">Save to schedule</button>
+    </form>
+    <p><a href="/newhabit">Ask for a new plan</a></p>
+{% endblock %}

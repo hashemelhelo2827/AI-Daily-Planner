@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Schedule
+{% endblock %}
+
+{% block main %}
+<div class="header">
+  <h1>Schedule</h1>
+</div>
+
+<!-- Form wraps day buttons and table cleanly -->
+<form action="/schedual" method="POST">
+  <div class="day-container">
+    <button type="submit" name="day" value="Monday">Monday</button>
+    <button type="submit" name="day" value="Tuesday">Tuesday</button>
+    <button type="submit" name="day" value="Wednesday">Wednesday</button>
+    <button type="submit" name="day" value="Thursday">Thursday</button>
+    <button type="submit" name="day" value="Friday">Friday</button>
+    <button type="submit" name="day" value="Saturday">Saturday</button>
+    <button type="submit" name="day" value="Sunday">Sunday</button>
+  </div>
+</form>
+
+<div class="table-wrap">
+  <table class="plan-table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Done</th>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Info</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+      <tr>
+        <td>{{ row.Time or '-' }}</td>
+        <td>
+          <label class="checkbox-container">
+            <input
+              type="checkbox"
+              class="status-check"
+              data-id="{{ row.id }}"
+              {% if row.done %}checked{% endif %}
+            >
+          </label>
+        </td>
+        <td>{{ row.Type or '-' }}</td>
+        <td>{{ row.Food or row.Subject or row.Exercise or row.Habit or row.Fun or '-' }}</td>
+
+        <td>
+          {% if row.Type == "food" %}
+            {% if row.food_id and row.food_id in ingrediants %}
+              <ul style="padding-left: 16px; margin: 0;">
+                {% for ing in ingrediants[row.food_id] %}
+                  <li>{{ ing.ingrediant }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              -
+            {% endif %}
+
+          {% elif row.Type == "exercise" %}
+            {% if row.exercise_id and row.exercise_id in exerciseinfo %}
+              {% for ex in exerciseinfo[row.exercise_id] %}
+                {% if ex.sets and ex.number %}
+                  <span class="badge">{{ ex.sets }} x {{ ex.number }}</span>
+                {% else %}
+                  <span class="badge">—</span>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              -
+            {% endif %}
+
+          {% else %}
+            -
+          {% endif %}
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" class="muted" style="text-align: center;">No schedule items found for this day.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<script>
+document.querySelectorAll('.status-check').forEach(checkbox => {
+  checkbox.addEventListener('change', async (event) => {
+    const itemId = event.target.getAttribute('data-id');
+    const isDone = event.target.checked;
+
+    if (!itemId) {
+      console.error('Missing data-id on checkbox');
+      return;
+    }
+
+    try {
+      const response = await fetch('/update_status', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: itemId, done: isDone })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update status');
+      }
+    } catch (error) {
+      console.error(error);
+      event.target.checked = !isDone;
+    }
+  });
+});
+</script>
+{% endblock %}

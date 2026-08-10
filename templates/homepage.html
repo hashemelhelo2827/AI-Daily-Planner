@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+<div class="header"><h1>Homepage</h1></div>
+
+<div class="card-container">
+    <nav class="nav-cards">
+        <a class="card" href="/analysis">
+            <h3>Analysis</h3>
+            <p class="card-desc">View your progress charts and detailed habit performance metrics here.</p>
+        </a>
+        <a class="card" href="/schedual">
+            <h3>Schedule</h3>
+            <p class="card-desc">Organize and view your daily and weekly task routine easily.</p>
+        </a>
+        <a class="card" href="/newhabit">
+            <h3>New Habit</h3>
+            <p class="card-desc">Create and configure new daily habits to start building consistency.</p>
+        </a>
+        <a class="card" href="/schedual">
+            <h3>Tracing</h3>
+            <p class="card-desc">Track your streak counts and log active habit completion dates.</p>
+        </a>
+        <a class="card" href="/studytracker">
+            <h3>Study Tracker</h3>
+            <p class="card-desc">Monitor your dedicated learning hours, subjects, and study goals.</p>
+        </a>
+        <a class="card" href="/logout">
+            <h3>Logout</h3>
+            <p class="card-desc">Safely end your session and log out of your profile account.</p>
+        </a>
+    </nav>
+</div>
+{% endblock %}

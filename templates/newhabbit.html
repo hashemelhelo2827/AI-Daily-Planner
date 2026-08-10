@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    New Habit
+{% endblock %}
+
+{% block main %}
+    <form action="/newhabit" method="post">
+        <div class="header"><h1>New habit</h1></div>
+        <div >
+            <select required name="habbit">
+                <option value="" disabled selected hidden> choose</option>
+                <option value="food">Nutrition</option>
+                <option value="subjects">Study</option>
+                <option value="exercises">Exercise</option>
+                <option value="habit">Habits</option>
+                <option value="fun">Fun</option>
+                <option value="schedual">Schedule</option>
+        </div>
+         <div >
+            <input type="text" autocomplete="off" autofocus required name="query" placeholder="Enter your query">
+            <button type="submit" style="max-width: 100px; width: 100%; display: block; margin: 0 auto;">Ask</button>
+        </div>
+    </form>
+{% endblock %}

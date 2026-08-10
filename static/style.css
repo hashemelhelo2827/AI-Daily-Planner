@@ -1,0 +1,457 @@
+/* --------------------------------------------------
+   1. Resets & Base Variables
+-------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F5EFE6;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #333333;
+}
+
+/* --------------------------------------------------
+   2. Header & Flash Messages
+-------------------------------------------------- */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 35px 0;
+    background-color: #E0823A;
+    color: #F5EFE6;
+    font-size: 20px;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.flash-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.flash-message {
+    padding: 12px 16px;
+    border-radius: 8px;
+    background-color: #D95D4E;
+    color: #ffffff;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* --------------------------------------------------
+   3. Forms & Glassmorphism (Login/Auth)
+-------------------------------------------------- */
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px 10px;
+    gap: 20px;
+    background-color: #F5EFE6;
+}
+
+.glass-frame {
+    width: 100%;
+    max-width: 380px;
+    padding: 40px 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    font-size: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+input:focus,
+select:focus {
+    border-color: #E0823A;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #F6C445;
+    color: #333333;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #f4b825;
+}
+
+button[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* --------------------------------------------------
+   4. Navigation Cards
+-------------------------------------------------- */
+.card-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.nav-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    max-width: 900px;
+    width: 100%;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 20px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #ffffff;
+    background: #F6A445;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+    margin-bottom: 8px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.card-desc {
+    font-size: 13px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* --------------------------------------------------
+   5. Day Selector Bar
+-------------------------------------------------- */
+.day-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.day-container button {
+    flex: 1;
+    min-width: 110px;
+    padding: 12px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #F6A445;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    /* Base transition state for smooth hover entry and exit */
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.day-container button:hover {
+    transform: translateY(-4px);
+    background-color: #E0823A;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* --------------------------------------------------
+   6. Data Tables
+-------------------------------------------------- */
+.table-wrap {
+    overflow-x: auto;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.plan-table th {
+    background: #F6A445;
+    color: #ffffff;
+    text-align: left;
+    padding: 14px 16px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: capitalize;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.plan-table td {
+    padding: 12px 16px;
+    border-top: 1px solid #eeeeee;
+    font-size: 14px;
+    color: #333333;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.plan-table tbody tr:nth-child(even) {
+    background: #FBF6EE;
+}
+
+.plan-table tbody tr:hover {
+    background: #FFF3E0;
+}
+
+.muted {
+    color: #888888;
+    font-size: 14px;
+}
+
+/* Custom Checkbox Design */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #E0823A;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Checked State */
+input[type="checkbox"]:checked {
+    background-color: #F6A445;
+    border-color: #E0823A;
+}
+
+/* Custom Checkmark (Tick) */
+input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+
+input[type="checkbox"]:hover {
+    border-color: #F6A445;
+}
+
+input[type="checkbox"]:focus-visible {
+    box-shadow: 0 0 0 3px rgba(246, 164, 69, 0.4);
+}
+
+#menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000; 
+    background-color: #E0823A;
+    color: #ffffff;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+#menu:hover {
+    background-color: #f6a445;
+    transform: scale(1.05);
+}
+
+
+.nav-menu {
+    position: fixed;
+    top: 72px;
+    left: 20px;
+    width: 200px;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.nav-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-menu a:hover {
+    color: #F6C445;
+    transform: translateX(4px);
+}
+
+.nav-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* --------------------------------------------------
+   7. Analysis Page
+-------------------------------------------------- */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    padding: 30px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.analytics-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.analytics-card h2 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 18px;
+}
+
+.chart-box {
+    position: relative;
+    height: 260px;
+    width: 100%;
+}
+
+.kpi {
+    font-size: 56px;
+    font-weight: 700;
+    color: #E0823A;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.kpi-unit {
+    font-size: 18px;
+    font-weight: 500;
+    color: #888888;
+}
+
+.heatmap {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 6px;
+    background: #ffffff;
+}
+
+.heatmap th {
+    font-size: 13px;
+    font-weight: 600;
+    color: #888888;
+    padding: 4px;
+    text-transform: capitalize;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.heatmap tbody th {
+    text-align: left;
+    color: #333333;
+    padding-left: 4px;
+}
+
+.heat-cell {
+    width: 40px;
+    height: 34px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #333333;
+    vertical-align: middle;
+}
+
+.heat-0   { background: #F5EFE6; color: #aaaaaa; }
+.heat-25  { background: #FBE3C3; }
+.heat-50  { background: #F6C445; }
+.heat-75  { background: #F6A445; color: #ffffff; }
+.heat-100 { background: #E0823A; color: #ffffff; }

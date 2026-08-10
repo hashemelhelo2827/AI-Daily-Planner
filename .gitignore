@@ -1,0 +1,5 @@
+data.db
+agent/openai-venv/
+__pycache__/
+flask_session/
+.env

@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Study Tracker
+{% endblock %}
+
+{% block main %}
+<div class="header"><h1>Study Tracker</h1></div>
+
+<!-- Hidden data container for Chart.js -->
+<div id="chart-data"
+     data-subjects='{{ subjects | tojson | safe }}'
+     data-grades='{{ grades | tojson | safe }}'
+     style="display: none;">
+</div>
+
+<!-- Chart Container -->
+<div style="position: relative; width: 90%; max-width: 800px; margin: 20px auto;">
+    <canvas id="gradeChart"></canvas>
+</div>
+
+<!-- Form Container -->
+<div class="login">
+    <div class="glass-frame">
+        <h2>Add New</h2>
+        <form action="/studytracker" method="post">
+            <div>
+                <input type="text" name="subject" autocomplete="off" autofocus required placeholder="Subject">
+            </div>
+            <div>
+                <select name="type" required>
+                    <option value="" disabled selected hidden>Select Type</option>
+                    <option value="Assignment">Assignment</option>
+                    <option value="Mid-term">Mid-term</option>
+                    <option value="Quiz">Quiz</option>
+                    <option value="Final">Final</option>
+                </select>
+            </div>
+            <div>
+                <input type="number" name="grade" min="0" max="100" autocomplete="off" required placeholder="your grade">
+            </div>
+            <div>
+                <button type="submit">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dataEl = document.getElementById('chart-data');
+        const subjectLabels = JSON.parse(dataEl.dataset.subjects || "[]");
+        const gradeData = JSON.parse(dataEl.dataset.grades || "[]");
+        const ctx = document.getElementById('gradeChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: subjectLabels,
+                datasets: [{
+                    label: 'Average Grade',
+                    data: gradeData,
+                    backgroundColor: 'rgba(224, 130, 58, 0.85)',
+                    borderColor: 'rgba(224, 130, 58, 1)',
+                    borderWidth: 1,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
