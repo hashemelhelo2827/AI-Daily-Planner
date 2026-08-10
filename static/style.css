@@ -1,6 +1,3 @@
-/* --------------------------------------------------
-   1. Resets & Base Variables
--------------------------------------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -13,9 +10,7 @@ body {
     color: #333333;
 }
 
-/* --------------------------------------------------
-   2. Header & Flash Messages
--------------------------------------------------- */
+
 .header {
     display: flex;
     justify-content: center;
@@ -50,9 +45,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* --------------------------------------------------
-   3. Forms & Glassmorphism (Login/Auth)
--------------------------------------------------- */
+
 .login {
     display: flex;
     flex-direction: column;
@@ -121,9 +114,7 @@ button[type="submit"]:active {
     transform: scale(0.98);
 }
 
-/* --------------------------------------------------
-   4. Navigation Cards
--------------------------------------------------- */
+
 .card-container {
     width: 100%;
     display: flex;
@@ -173,9 +164,7 @@ button[type="submit"]:active {
     overflow: hidden;
 }
 
-/* --------------------------------------------------
-   5. Day Selector Bar
--------------------------------------------------- */
+
 .day-container {
     display: flex;
     justify-content: center;
@@ -209,9 +198,7 @@ button[type="submit"]:active {
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }
 
-/* --------------------------------------------------
-   6. Data Tables
--------------------------------------------------- */
+
 .table-wrap {
     overflow-x: auto;
     margin-bottom: 24px;
@@ -367,9 +354,7 @@ input[type="checkbox"]:focus-visible {
     transform: translateY(0);
 }
 
-/* --------------------------------------------------
-   7. Analysis Page
--------------------------------------------------- */
+
 .analytics-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
