@@ -1,0 +1,23 @@
+# AI-Daily-Planner
+
+> AI-powered weekly life planner that generates personalized nutrition, study, workout, habit, and fun plans via a multi-provider LLM agent, then tracks adherence through a weekly schedule and analysis dashboard.
+
+## Documentation
+
+- [Main README](README.md): Setup, features, usage, and troubleshooting guide
+- [AGENTS.md](AGENTS.md): Agent-oriented project overview, architecture, and dev workflow
+- [Database Schema](database/schema.sql): SQLite schema for users, food, subjects, exercises, habits, fun, schedule, grades
+
+## Architecture
+
+- [App Entry (app.py)](app.py): Flask routes - auth, schedule, analysis, study tracker
+- [Helpers (helpers.py)](helpers.py): DB access, plan normalization, schedule saving, stats
+- [Agent (agent/agent.py)](agent/agent.py): LLM provider chain (Mistral -> Groq -> Gemini) with retry logic
+- [Agent Tools (agent/tools.py)](agent/tools.py): MCP tools that search the user's saved data
+- [Pydantic Models (agent/neededclasses.py)](agent/neededclasses.py): Validation models for agent JSON output
+- [Frontend Styles (static/style.css)](static/style.css): Styling for all Jinja2 templates
+
+## Configuration
+
+- [Requirements (requirements.txt)](requirements.txt): Python dependencies
+- [Environment Template (app.py SECRET_KEY)](app.py): Change the placeholder SECRET_KEY before deployment

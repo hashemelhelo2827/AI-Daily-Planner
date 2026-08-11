@@ -7,7 +7,7 @@ from helpers import *
 from agent.agent import *
 app = Flask(__name__)
 
-app.config["SECRET_KEY"] = "super-secret-key-change-me"
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "super-secret-key-change-me")
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
