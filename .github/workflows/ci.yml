@@ -20,7 +20,7 @@ jobs:
         run: pip install -r requirements.txt flake8
 
       - name: Lint
-        run: flake8 app.py helpers.py agent/ --max-line-length=120
+        run: flake8 app.py helpers.py agent/
 
   test:
     runs-on: ubuntu-latest

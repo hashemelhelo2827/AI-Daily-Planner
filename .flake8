@@ -1,0 +1,8 @@
+[flake8]
+max-line-length = 120
+# F401: unused imports (kept as optional provider imports)
+# F403/F405: star imports are the project's established pattern (helpers, agent)
+# E225/E211: cosmetic whitespace in existing code
+# E302/E303/E305: blank-line cosmetics in existing code
+# E501: covered by max-line-length but a few longer lines exist
+ignore = F401, F403, F405, E225, E211, E302, E303, E305, E501

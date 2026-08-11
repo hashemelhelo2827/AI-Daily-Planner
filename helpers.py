@@ -311,4 +311,3 @@ def get_analysis(user_id, cursor) -> dict:
         "heatmap_types": heatmap_types,
         "categories": categories,
     }
-

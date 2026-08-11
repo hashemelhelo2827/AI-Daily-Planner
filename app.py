@@ -254,7 +254,7 @@ def newhabit():
                 response = run_async(getnewfun(userid=user_id, userinput=query)).result()
             else:
                 response = run_async(getnewschedual(userid=user_id, userinput=query)).result()
-        except Exception as e:
+        except Exception:
             app.logger.exception("Agent call failed")
             flash("The AI service quota is exhausted right now — try again in a few minutes.")
             return redirect("/newhabit")
