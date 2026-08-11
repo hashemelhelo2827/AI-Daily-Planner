@@ -6,6 +6,7 @@
 ![Flask](https://img.shields.io/badge/Flask-3.1-lightgrey)
 ![SQLite](https://img.shields.io/badge/SQLite-database-green)
 ![LangChain](https://img.shields.io/badge/LangChain-agent-orange)
+[![CI](https://github.com/hashemelhelo2827/AI-Daily-Planner/actions/workflows/ci.yml/badge.svg)](https://github.com/hashemelhelo2827/AI-Daily-Planner/actions/workflows/ci.yml)
 
 ## Table of Contents
 
